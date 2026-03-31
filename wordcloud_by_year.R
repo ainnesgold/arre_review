@@ -1,3 +1,5 @@
+#word cloud by year instead
+
 # install.packages(c("pdftools", "tm", "wordcloud", "RColorBrewer"))
 
 library(pdftools)
@@ -6,7 +8,7 @@ library(wordcloud)
 library(RColorBrewer)
 
 # Path to folder containing PDFs
-pdf_folder <- "PDFs/First80"
+pdf_folder <- "PDFs/ByYears/2022-2026"
 
 # Get list of PDF files
 pdf_files <- list.files(pdf_folder, pattern = "\\.pdf$", full.names = TRUE)
