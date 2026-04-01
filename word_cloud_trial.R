@@ -6,7 +6,7 @@ library(wordcloud)
 library(RColorBrewer)
 
 # Path to folder containing PDFs
-pdf_folder <- "PDFs/First80"
+pdf_folder <- "PDFs/First10"
 
 # Get list of PDF files
 pdf_files <- list.files(pdf_folder, pattern = "\\.pdf$", full.names = TRUE)
