@@ -8,7 +8,7 @@ library(wordcloud)
 library(RColorBrewer)
 
 # Path to folder containing PDFs
-pdf_folder <- "PDFs/ByYears/2022-2026"
+pdf_folder <- "PDFs/ByYears/2025-2026"
 
 # Get list of PDF files
 pdf_files <- list.files(pdf_folder, pattern = "\\.pdf$", full.names = TRUE)
