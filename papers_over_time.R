@@ -13,9 +13,10 @@ year_counts <- raw_data %>%
 pubs_by_year <- ggplot(year_counts %>% filter(Year < 2026), aes(x = Year, y = n)) +
   geom_col() +
   labs(x = "Year", y = "Number of publications") +
-  theme_minimal()
+  theme_minimal() +
+  ggtitle("A.")
 
-ggsave("pubs_by_year.pdf", pubs_by_year, width = 4, height = 4)
+#ggsave("pubs_by_year.pdf", pubs_by_year, width = 4, height = 4)
 
 
 # Binned version
@@ -33,7 +34,8 @@ bin_counts <- df2 %>%
 binned_figure <-ggplot(bin_counts, aes(x = year_bin, y = n)) +
   geom_col() +
   labs(x = "Year range", y = "Number of publications") +
-  theme_minimal()
+  theme_minimal() +
+  ggtitle("B.")
 
 
 
@@ -50,4 +52,8 @@ binned_figure <-ggplot(bin_counts, aes(x = year_bin, y = n)) +
 #binned_figure <- ggarrange(p1,p2, nrow=1, ncol=2)
 
 
-ggsave("pubs_by_year_bin.pdf", binned_figure, width = 4, height = 4)
+#ggsave("pubs_by_year_bin.pdf", binned_figure, width = 4, height = 4)
+
+number_pubs<-ggarrange(pubs_by_year, binned_figure, nrow=1, ncol=2)
+
+ggsave("number_pubs.pdf", number_pubs, width = 8, height = 4)
