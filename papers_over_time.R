@@ -10,11 +10,11 @@ year_counts <- raw_data %>%
   count(Year)
 
 # Plot
-pubs_by_year <- ggplot(year_counts %>% filter(Year < 2026), aes(x = Year, y = n)) +
+pubs_by_year <- ggplot(year_counts, aes(x = Year, y = n)) +
   geom_col() +
   labs(x = "Year", y = "Number of publications") +
   theme_minimal() +
-  ggtitle("A.")
+  ggtitle("A")
 
 #ggsave("pubs_by_year.pdf", pubs_by_year, width = 4, height = 4)
 
@@ -22,10 +22,10 @@ pubs_by_year <- ggplot(year_counts %>% filter(Year < 2026), aes(x = Year, y = n)
 # Binned version
 
 df2 <- raw_data %>%
-  filter(Year < 2025) %>%
   mutate(year_bin = cut(Year,
-                        breaks = c(2005, 2009, 2014, 2019, 2024),
-                        labels = c("2005–2009", "2010–2014", "2015-2019", "2020–2024"),
+                        breaks = c(2005, 2009, 2014, 2019, 2024, 2026),
+                        labels = c("2005–2009", "2010–2014", "2015-2019", "2020–2024", 
+                                   "2025-May 2026"),
                         include.lowest = TRUE))
 
 bin_counts <- df2 %>%
@@ -35,7 +35,7 @@ binned_figure <-ggplot(bin_counts, aes(x = year_bin, y = n)) +
   geom_col() +
   labs(x = "Year range", y = "Number of publications") +
   theme_minimal() +
-  ggtitle("B.")
+  ggtitle("B")
 
 
 
@@ -56,4 +56,4 @@ binned_figure <-ggplot(bin_counts, aes(x = year_bin, y = n)) +
 
 number_pubs<-ggarrange(pubs_by_year, binned_figure, nrow=1, ncol=2)
 
-ggsave("number_pubs.pdf", number_pubs, width = 8, height = 4)
+ggsave("number_pubs.pdf", number_pubs, width = 10, height = 4)
