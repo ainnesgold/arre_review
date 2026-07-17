@@ -6,7 +6,7 @@ library(wordcloud)
 library(RColorBrewer)
 
 # Path to folder containing PDFs
-pdf_folder <- "PDFs/First10"
+pdf_folder <- "PDFs/All130"
 
 # Get list of PDF files
 pdf_files <- list.files(pdf_folder, pattern = "\\.pdf$", full.names = TRUE)
@@ -38,7 +38,7 @@ corpus <- tm_map(corpus, removePunctuation)
 corpus <- tm_map(corpus, removeNumbers)
 
 # 4. Custom stopwords
-custom_stopwords <- c("study", "data", "model", "results", 
+custom_stopwords <- c("study", "data", "results", 
                       "analysis", "figure", "table", "fig", 
                       "doi", "sheries", "shing")
 
