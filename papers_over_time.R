@@ -57,3 +57,19 @@ binned_figure <-ggplot(bin_counts, aes(x = year_bin, y = n)) +
 number_pubs<-ggarrange(pubs_by_year, binned_figure, nrow=1, ncol=2)
 
 ggsave("number_pubs.pdf", number_pubs, width = 10, height = 4)
+
+
+## average increase
+year_counts_2 <- year_counts %>% filter(Year != 2026)
+avg_increase <- (tail(year_counts_2$n, 1) - year_counts_2$n[1]) /
+  (tail(year_counts_2$Year, 1) - year_counts_2$Year[1])
+avg_increase
+
+## percent increase
+years <- max(year_counts_2$Year) - min(year_counts_2$Year)
+cagr <- ((tail(year_counts_2$n, 1) / year_counts_2$n[1])^(1 / years) - 1) * 100
+cagr
+
+
+
+
