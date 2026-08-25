@@ -1,4 +1,4 @@
-#word cloud by year instead
+# Word clouds by year
 
 # install.packages(c("pdftools", "tm", "wordcloud", "RColorBrewer"))
 
@@ -8,12 +8,12 @@ library(wordcloud)
 library(RColorBrewer)
 
 # Path to folder containing PDFs
-pdf_folder <- "PDFs/ByYears/2025-2026"
+pdf_folder <- "PDFs/ByYears/2025-2026" # Change based on which years word cloud you want to generate
 
 # Get list of PDF files
 pdf_files <- list.files(pdf_folder, pattern = "\\.pdf$", full.names = TRUE)
 
-# Extract text from all PDFs (suppress PDF warnings)
+# Extract text from all PDFs
 all_text <- lapply(pdf_files, function(f) {
   suppressMessages(pdf_text(f))
 })
@@ -23,23 +23,21 @@ all_text <- unlist(all_text)
 
 # Collapse into one long text string
 combined_text <- paste(all_text, collapse = " ")
-
-# ✅ Use VCorpus (fixes dropped document warnings)
 corpus <- VCorpus(VectorSource(combined_text))
 
-# 1. Lowercase
+# Lowercase
 corpus <- tm_map(corpus, content_transformer(tolower))
 
-# 2. Remove weird unicode (em dash, etc.)
+# Remove unicode (em dash, etc.)
 corpus <- tm_map(corpus, content_transformer(function(x) {
   iconv(x, "UTF-8", "ASCII", sub = " ")
 }))
 
-# 3. Remove punctuation and numbers
+# Remove punctuation and numbers
 corpus <- tm_map(corpus, removePunctuation)
 corpus <- tm_map(corpus, removeNumbers)
 
-# 4. Custom stopwords
+# Custom stopwords
 custom_stopwords <- c("study", "results", 
                       "analysis", "figure", "table", "fig", 
                       "doi", "sheries", "shing")
@@ -52,7 +50,7 @@ all_stopwords <- c(stopwords("english"),
 # Remove stopwords
 corpus <- tm_map(corpus, removeWords, all_stopwords)
 
-# 5. Strip whitespace
+# Strip whitespace
 corpus <- tm_map(corpus, stripWhitespace)
 
 # Create term-document matrix
@@ -60,12 +58,13 @@ dtm <- TermDocumentMatrix(corpus)
 m <- as.matrix(dtm)
 word_freq <- sort(rowSums(m), decreasing = TRUE)
 
-# ✅ Plot settings to avoid clipping
+# Plot settings to avoid clipping
 par(mar = c(0, 0, 0, 0))
 set.seed(123)
 
+#Generate word cloud
 wordcloud(names(word_freq),
           word_freq,
           max.words = 100,
-          scale = c(2.5, 0.5),   # 👈 reduce from 3 → 2.5
+          scale = c(2.5, 0.5),  
           colors = brewer.pal(8, "Dark2"))
